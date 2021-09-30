@@ -164,13 +164,13 @@ class MedianOfTwoSortedArrays:
             j = (m + n + 1) // 2 - i
 
             # nums_im1, nums_i, nums_jm1, nums_j 分别表示 nums1[i-1], nums1[i], nums2[j-1], nums2[j]
-            nums_im1 = (-sys.maxsize - 1) if i == 0 else nums1[i - 1]
+            nums_i_1 = (-sys.maxsize - 1) if i == 0 else nums1[i - 1]
             nums_i = sys.maxsize if i == m else nums1[i]
-            nums_jm1 = (-sys.maxsize - 1) if j == 0 else nums2[j - 1]
-            nums_j = sys.maxsize if i == n else nums2[j]
+            nums_j_1 = (-sys.maxsize - 1) if j == 0 else nums2[j - 1]
+            nums_j = sys.maxsize if j == n else nums2[j]
 
-            if nums_im1 <= nums_j:
-                median1 = max(nums_im1, nums_jm1)
+            if nums_i_1 <= nums_j:
+                median1 = max(nums_i_1, nums_j_1)
                 median2 = min(nums_i, nums_j)
                 left = i + 1
             else:

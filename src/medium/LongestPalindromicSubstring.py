@@ -27,9 +27,6 @@
  * s 仅由数字和英文字母（大写和/或小写）组成
 """
 
-import numpy as np
-
-
 class LongestPalindromicSubstring:
     def isPalindrome(self, s):
         n = len(s)
@@ -91,10 +88,10 @@ class LongestPalindromicSubstring:
         matrix = [[False for i in range(n)] for i in range(n)]
         for i in reversed(range(n)):
             for j in range(i, n):
-                if i == j or (s[i] == s[j] and (j - i < 2 or matrix[i + 1][j - 1])):
+                if i == j or (s[i] == s[j] and (j - i < 2 or matrix[i + 1][j - 1])):  # j - i < 2 is 'bb' or matrix[i + 1][j - 1] is 'bab'
                     matrix[i][j] = True
-                    if len(longest) < j - i + 1 and i < j - i + 1:
-                        longest = s[i:j - i + 1]
+                    if len(longest) < j - i + 1:
+                        longest = s[i:j + 1]
 
         return longest
 
@@ -102,12 +99,13 @@ class LongestPalindromicSubstring:
 def main():
     obj = LongestPalindromicSubstring()
     print(obj.longestPalindrome3("bbabad"))
-    print(obj.longestPalindrome1("cbbd"))
+    print(obj.longestPalindrome3("bbbbad"))
+    print(obj.longestPalindrome3("cbbd"))
     print(obj.longestPalindrome1("a"))
     print(obj.longestPalindrome1("ac"))
 
     print(obj.longestPalindrome_recursive_way("bbabad"))
-    print(obj.longestPalindrome_recursive_way("cbbd"))
+    print(obj.longestPalindrome_recursive_way("bbbbad"))
 
 
 if __name__ == "__main__":

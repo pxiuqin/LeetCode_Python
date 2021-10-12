@@ -88,6 +88,46 @@ class RegularExpressionMatching:
 
             return self.isMatch(s[i:], p[2:])
 
+    def isMatch_Sample(self, s, p):
+        if p == "":
+            return s == ""
+
+        if len(p) > 1 and p[1] == '*':
+            return self.isMatch_Sample(s, p[2:]) or (s != ""
+                                                     and (s[0] == p[0] or p[0] == '.')
+                                                     and self.isMatch_Sample(s[1:], p))
+        else:
+            return s != "" \
+                   and (s[0] == p[0] or p[0] == '.') \
+                   and self.isMatch_Sample(s[1:], p[1:])
+
+    def isMatch_DP(self, s, p):
+        """
+         * 我们也可以用 DP 来解，定义一个二维的 DP 数组，其中 dp[i][j] 表示 s[0,i) 和 p[0,j) 是否 match，然后有下面三种情况
+         * (下面部分摘自这个帖子)：https://discuss.leetcode.com/topic/17852/9-lines-16ms-c-dp-solutions-with-explanations
+         * <p>
+         * 1.  P[i][j] = P[i - 1][j - 1], if p[j - 1] != '*' && (s[i - 1] == p[j - 1] || p[j - 1] == '.');
+         * 2.  P[i][j] = P[i][j - 2], if p[j - 1] == '*' and the pattern repeats for 0 times;
+         * 3.  P[i][j] = P[i - 1][j] && (s[i - 1] == p[j - 2] || p[j - 2] == '.'), if p[j - 1] == '*' and the pattern repeats for at least 1 times.
+         *
+        :param s:
+        :param p:
+        :return:
+        """
+        m = len(s)
+        n = len(p)
+        dp = [[False for i in range(n + 1)] for j in range(m + 1)]
+        dp[0][0] = True
+
+        for i in range(m + 1):
+            for j in range(1, n + 1):
+                if j > 1 and p[j - 1] == '*':
+                    dp[i][j] = dp[i][j - 2] or (i > 0 and (s[i - 1] == p[j - 2] or p[j - 2] == '.') and dp[i - 1][j])
+                else:
+                    dp[i][j] = i > 0 and dp[i - 1][j - 1] and (s[i - 1] == p[j - 1] or p[j - 1] == '.')
+
+        return dp[m][n]
+
 
 def main():
     obj = RegularExpressionMatching()
@@ -105,6 +145,20 @@ def main():
     print(obj.isMatch("aab", "*a*b"))
     print(obj.isMatch("aab", ".a*b"))
     print(obj.isMatch("aab", "a*b"))
+
+    print()
+    print(obj.isMatch_Sample("mississippi", "mis*is*p*."))
+    print(obj.isMatch_Sample("aab", "c*a*b"))
+    print(obj.isMatch_Sample("aab", "*a*b"))
+    print(obj.isMatch_Sample("aab", ".a*b"))
+    print(obj.isMatch_Sample("aab", "a*b"))
+
+    print()
+    print(obj.isMatch_DP("mississippi", "mis*is*p*."))
+    print(obj.isMatch_DP("aab", "c*a*b"))
+    print(obj.isMatch_DP("aab", "*a*b"))
+    print(obj.isMatch_DP("aab", ".a*b"))
+    print(obj.isMatch_DP("aab", "a*b"))
 
 
 if __name__ == "__main__":

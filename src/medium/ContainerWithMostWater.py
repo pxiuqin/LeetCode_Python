@@ -39,7 +39,7 @@ class ContainerWithMostWater:
         while multiplier != 0:
             maxarea = max(maxarea, min(height[start], height[end]) * multiplier)
             multiplier -= 1
-            if height[start] > height[end]:
+            if height[start] > height[end]:  # find max
                 end -= 1
             else:
                 start += 1

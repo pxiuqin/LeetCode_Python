@@ -57,11 +57,31 @@ class LongestCommonPrefix:
 
         return word
 
+    def longestCommonPrefix2(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        if not strs:
+            return ""
+
+        for i in range(len(strs[0])):
+            for string in strs[1:]:
+                if i >= len(string) or string[i] != strs[0][i]:
+                    return strs[0][:i]
+
+        return strs[0]
+
 
 def main():
     obj = LongestCommonPrefix()
     print(obj.longestCommonPrefix(["flower", "flow", "flight"]))
     print(obj.longestCommonPrefix(["dog", "racecar", "car"]))
+
+    print()
+
+    print(obj.longestCommonPrefix2(["flower", "flow", "flight"]))
+    print(obj.longestCommonPrefix2(["dog", "racecar", "car"]))
 
 
 if __name__ == '__main__':

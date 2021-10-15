@@ -21,6 +21,7 @@
  * -10^5 <= nums[i] <= 10^5
 """
 
+import torch
 
 class ThreeSum:
     """
@@ -92,6 +93,12 @@ class ThreeSum:
 
     @staticmethod
     def combination(v, k):
+        """
+        calc combination:Cn-k
+        :param v:
+        :param k:
+        :return:
+        """
         result = []
         d = []
         n = len(v)
@@ -101,9 +108,11 @@ class ThreeSum:
         # 1) from the left, find the [1,0] pattern, change it to [0,1]
         # 2) move all of the 1 before the pattern to the most left side
         # 3) check all of 1 move to the right
+        # from left to right handle 1
         while True:
             tmp = []
             for x in range(n):
+                # add item
                 if d[x] > 0:
                     tmp.append(v[x])
 
@@ -127,6 +136,7 @@ class ThreeSum:
 
                 if d[i] == 1:
                     ones += 1
+
             if found == False:
                 break
 

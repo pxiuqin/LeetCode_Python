@@ -3,4 +3,8 @@
 .metals
 data/
 target/
+*egg-info/
+__pycache__/
+.coverage
+*.pyc
 *.iml

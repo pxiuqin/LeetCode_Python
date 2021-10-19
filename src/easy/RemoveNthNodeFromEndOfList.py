@@ -23,10 +23,17 @@
 """
 
 
-class Node(object):
+class LinkNode(object):
     def __init__(self, item):
         self.item = item
         self.next = None
+
+    def print(self):
+        print(self.item, end=',')
+        cur = self.next
+        while cur is not None:
+            print(cur.item, end=',')
+            cur = cur.next
 
 
 class LinkList(object):
@@ -57,7 +64,7 @@ class LinkList(object):
             cur = cur.next
 
     def append(self, item):
-        node = Node(item)
+        node = LinkNode(item)
         if self.isEmpyt():
             self._head = node
         else:
@@ -68,11 +75,11 @@ class LinkList(object):
 
     def insert(self, index, item):
         if index <= 0:
-            self._head = Node(item)
+            self._head = LinkNode(item)
         elif index > self.length() - 1:
             self.append(item)
         else:
-            node = Node(item)
+            node = LinkNode(item)
             cur = self._head
             for i in range(index - 1):
                 cur = cur.next

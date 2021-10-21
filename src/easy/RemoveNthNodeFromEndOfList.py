@@ -28,6 +28,20 @@ class LinkNode(object):
         self.item = item
         self.next = None
 
+    def list2link(self, arr):
+        for each in arr:
+            self.append(each)
+
+    def append(self, item):
+        node = LinkNode(item)
+        if self.next is None:
+            self.next = node
+        else:
+            cur = self.next
+            while cur.next is not None:
+                cur = cur.next
+            cur.next = node
+
     def print(self):
         print(self.item, end=',')
         cur = self.next

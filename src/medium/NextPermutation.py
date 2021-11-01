@@ -74,6 +74,7 @@ class NextPermutation:
 
 def main():
     obj = NextPermutation()
+    input(obj.nextPermutation([1,2,7,4,3,1]))
     print(obj.nextPermutation([1, 2, 3]))
     print(obj.nextPermutation([1, 2, 5, 4, 3]))
     print(obj.nextPermutation([1, 1, 5]))

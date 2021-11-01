@@ -32,7 +32,7 @@
 * 29.[Divide Two Integers](https://leetcode.com/problems/divide-two-integers/): medium/DivideTwoIntegers.py(Medium)
 * 30.[Substring with Concatenation of All Words](https://leetcode.com/problems/substring-with-concatenation-of-all-words/): hard/SubstringWithConcatenationOfAllWords.py(Hard)
 * 31.[Next Permutation](https://leetcode.com/problems/next-permutation/): medium/NextPermutation.py(Medium)
-* 32.[Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/): hard/Longest Valid Parentheses.py(Hard)
+* 32.[Longest Valid Parentheses](https://leetcode.com/problems/longest-valid-parentheses/): hard/LongestValidParentheses.py(Hard)
 * 33.[Search in Rotated Sorted Array](https://leetcode.com/problems/search-in-rotated-sorted-array/): medium/SearchInRotatedSortedArray.py(Medium)
 * 34.[Search for a Range](https://leetcode.com/problems/search-for-a-range/): medium/SearchForARange.py(Medium)
 * 35.[Search Insert Position](https://oj.leetcode.com/problems/search-insert-position/): easy/SearchInsertPosition.py(Easy)

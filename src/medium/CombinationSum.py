@@ -38,16 +38,19 @@ class CombinationSum:
     def combinationSumHelper(self, candidates, start, target, solution: list, result):
         if target < 0:
             return
+
         if target == 0:
             result.append([i for i in solution])
             return
+
         for i in range(start, len(candidates)):
             # skip duplicates
             if i > start and candidates[i] == candidates[i - 1]:
                 continue
+
             cand = candidates[i]
             solution.append(cand)
-            self.combinationSumHelper(candidates, i, target - cand, solution, result)  # cand can be used multiple times
+            self.combinationSumHelper(candidates, i, target - cand, solution, result)  # i can be used multiple times
             solution.pop(len(solution) - 1)
 
     def combinationSum(self, candidates, target):

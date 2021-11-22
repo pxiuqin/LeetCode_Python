@@ -33,6 +33,7 @@
 
 """
 
+import copy
 
 class NQueens:
     # 判断在cur[row][col]位置放一个皇后，是否是合法的状态
@@ -45,7 +46,7 @@ class NQueens:
 
         i = row - 1
         j = col - 1
-        # 右对角线(只需要判断对角线上半部分，因为后面的行还没有开始放置)
+        # 主对角线(只需要判断对角线上半部分，因为后面的行还没有开始放置)
         while i >= 0 and j >= 0:
             if cur[i][j] == 'Q':
                 return False
@@ -55,7 +56,7 @@ class NQueens:
 
         i = row - 1
         j = col + 1
-        # 左对角线(只需要判断对角线上半部分，因为后面的行还没有开始放置)
+        # 副对角线(只需要判断对角线上半部分，因为后面的行还没有开始放置)
         while i >= 0 and j < len(cur):
             if cur[i][j] == 'Q':
                 return False
@@ -67,7 +68,7 @@ class NQueens:
 
     def helper(self, cur: list, row, result: list):
         if row == len(cur):
-            result.append(cur[:])
+            result.append(copy.deepcopy(cur))
 
         for i in range(len(cur)):
             if self.isValid1(cur, row, i):
@@ -84,7 +85,7 @@ class NQueens:
             for j in range(n):
                 temp.append('.')
 
-            s.append(temp[:])
+            s.append(temp)
 
         self.helper(s, 0, result)
 
@@ -93,8 +94,15 @@ class NQueens:
 
 def main():
     obj = NQueens()
-    print(obj.solveNQueens(4))
-    print(obj.solveNQueens(8))
+    for i in obj.solveNQueens(4):
+        for j in i:
+            print(j)
+        print()
+
+    for i in obj.solveNQueens(8):
+        for j in i:
+            print(j)
+        print()
 
 
 if __name__ == '__main__':

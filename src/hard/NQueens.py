@@ -35,6 +35,7 @@
 
 import copy
 
+
 class NQueens:
     # 判断在cur[row][col]位置放一个皇后，是否是合法的状态
     # 已经保证了每行一个皇后，只需要判断列是否合法以及对角线是否合法。
@@ -91,15 +92,75 @@ class NQueens:
 
         return result
 
+    #####################################################################################################################
+
+    # Attempting to put the Queen into [row, col], check it is valid or not
+    # Notes:
+    # 1) we just checking the Column not Row, because the row cannot be conflicted
+    # 2) to check the diagonal, we just check |x'-x| == |y'-y|, (x',y') is a Queen will be placed
+    def isValid(self, attemptedColumn, attemptedRow, queenInColumn: list):
+        for i in range(attemptedRow):
+            # check the same column
+            # check the diagonal
+            if attemptedColumn == queenInColumn[i] or abs(attemptedColumn - queenInColumn[i]) == abs(attemptedRow - i):
+                return False;
+
+        return True
+
+    def solveNQueens2(self, n):
+        result = []
+
+        state = []
+        for i in range(n):
+            state.append(-1)
+
+        row = 0
+        while True:
+            # 从上一次放置的位置后面开始放置
+            col = state[row] + 1
+            while col < n:
+                if self.isValid(col, row, state):
+                    state[row] = col
+
+                    # 找到了一个解,继续试探下一列
+                    if row == n - 1:
+                        s = []
+                        for i in range(n):
+                            s.append(['.' for j in range(n)])
+
+                        for j in range(n):
+                            temp = s[j]
+                            temp[state[j]] = 'Q'
+                            s[j] = temp[:]
+
+                        result.append(s)
+                    else:
+                        # 当前状态合法，去放置下一行的皇后
+                        row += 1
+                        break
+
+                col += 1
+
+            # 当前行的所有位置都尝试过，回溯到上一行
+            if col == n:
+                if row == 0:
+                    break  # 所有状态尝试完毕，退出
+
+                # 回溯前清除当前行的状态
+                state[row] = -1
+                row -= 1
+
+        return result
+
 
 def main():
     obj = NQueens()
-    for i in obj.solveNQueens(4):
+    for i in obj.solveNQueens2(4):
         for j in i:
             print(j)
         print()
 
-    for i in obj.solveNQueens(8):
+    for i in obj.solveNQueens2(8):
         for j in i:
             print(j)
         print()

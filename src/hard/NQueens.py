@@ -152,15 +152,61 @@ class NQueens:
 
         return result
 
+    ######################################################################################################################
+
+    # The following recursion is easy to understand. Nothing's tricky.
+    # 1) recursively find all of possible columns row by row.
+    # 2) solution[] array only stores the columns index. `solution[row] = col;`
+    def solveNQueensRecursive(self, n, currentRow, solution: list, result: list):
+        # if no more row need to do, shape the result
+        if currentRow == n:
+            s = []
+            for i in range(n):
+                temp = [',' for j in range(n)]
+                s.append(temp)
+
+            for row in range(n):
+                temp = s[row]
+                temp[solution[row]] = 'Q'
+                s[row] = temp[:]
+
+            result.append(s)
+
+            return
+
+        # for each column
+        for col in range(n):
+            # if the current column is valid
+            if (self.isValid(col, currentRow, solution)):
+                # place the Queue
+                solution[currentRow] = col
+
+                # recursively put the Queen in next row
+                self.solveNQueensRecursive(n, currentRow + 1, solution, result)
+
 
 def main():
     obj = NQueens()
-    for i in obj.solveNQueens2(4):
+    # for i in obj.solveNQueens2(4):
+    #     for j in i:
+    #         print(j)
+    #     print()
+    #
+    # for i in obj.solveNQueens2(8):
+    #     for j in i:
+    #         print(j)
+    #     print()
+
+    result = []
+    obj.solveNQueensRecursive(4, 0, [-1 for i in range(4)], result)
+    for i in result:
         for j in i:
             print(j)
         print()
 
-    for i in obj.solveNQueens2(8):
+    result = []
+    obj.solveNQueensRecursive(8, 0, [-1 for i in range(8)], result)
+    for i in result:
         for j in i:
             print(j)
         print()

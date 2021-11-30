@@ -54,7 +54,7 @@
 
 class PermutationSequence:
     # Extreamly Optimized
-    def getPermutation(self, n, k):
+    def getPermutation1(self, n, k):
         num = []
         total = 1
         for i in range(1, n + 1):
@@ -85,12 +85,45 @@ class PermutationSequence:
 
         return ss
 
+    ####################################################################################################################
+
+    def factorial(self, n):
+        total = 1
+        for i in range(n, 0, -1):
+            total *= i
+        return total
+
+    def getPermutation2(self, n, k):
+        ls = []
+        k = k - 1
+
+        for i in range(n - 1, -1, -1):
+            total = self.factorial(i)
+            temp = k // total
+
+            for j in range(1, n + 1):
+                if ls.__contains__(j) is False:
+                    temp -= 1
+                    if temp < 0:
+                        ls.append(j)
+                        break
+
+            k = k % total
+
+        return ls
+
+    ####################################################################################################################
+
 
 def main():
     obj = PermutationSequence()
-    print(obj.getPermutation(3, 1))
-    print(obj.getPermutation(3, 3))
-    print(obj.getPermutation(4, 9))
+    print(obj.getPermutation1(3, 1))
+    print(obj.getPermutation1(3, 3))
+    print(obj.getPermutation1(4, 9))
+
+    print(obj.getPermutation2(3, 1))
+    print(obj.getPermutation2(3, 3))
+    print(obj.getPermutation2(4, 9))
 
 
 if __name__ == "__main__":

@@ -114,6 +114,61 @@ class PermutationSequence:
 
     ####################################################################################################################
 
+    def nextPermutation(self, num: list):
+        if len(num) <= 1:
+            return num
+
+        for i in range(len(num) - 1, 0, -1):
+            if num[i - 1] < num[i]:
+                j = len(num) - 1
+                while num[i - 1] > num[j]:
+                    j -= 1
+
+                temp = num[i - 1]
+                num[i - 1] = num[j]
+                num[j] = temp
+
+                num = num[:i] + list(reversed(num[i:]))
+                return num
+
+        num = reversed(num)
+        return num
+
+    # Optimization by determining the group
+    def getPermutation3(self, n, k):
+        num = []
+        total = 1
+        for i in range(1, n + 1):
+            num.append(i)
+            total *= i
+
+        # invalid k
+        if total < k:
+            return []
+
+        group = total // n
+        idx = (k - 1) // group
+        nn = num[idx]
+        num.pop(idx)
+        num.insert(0, nn)  # start permutation by group
+
+        offset = (k - 1) % group  # offset is remain permutation
+        for i in range(offset):
+            num = self.nextPermutation(num)
+
+        return num
+
+    ####################################################################################################################
+
+    # Time Limit Exceeded
+    def getPermutation4(self, n, k):
+        num = [i for i in range(1, n + 1)]
+
+        for i in range(1, k):
+            num = self.nextPermutation(num)
+
+        return num
+
 
 def main():
     obj = PermutationSequence()
@@ -124,6 +179,14 @@ def main():
     print(obj.getPermutation2(3, 1))
     print(obj.getPermutation2(3, 3))
     print(obj.getPermutation2(4, 9))
+
+    print(obj.getPermutation3(3, 1))
+    print(obj.getPermutation3(3, 3))
+    print(obj.getPermutation3(4, 9))
+
+    print(obj.getPermutation4(3, 1))
+    print(obj.getPermutation4(3, 3))
+    print(obj.getPermutation4(4, 9))
 
 
 if __name__ == "__main__":

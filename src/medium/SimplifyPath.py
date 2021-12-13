@@ -59,7 +59,7 @@ class SimplifyPath:
         elems = path.split("/")
 
         ignore = 0  # handle ..
-        for i in reversed(range(len(elems) - 1)):
+        for i in reversed(range(len(elems))):
             if elems[i] == "" or elems[i] == ".":
                 continue
 

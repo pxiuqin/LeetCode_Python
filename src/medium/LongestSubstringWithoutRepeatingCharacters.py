@@ -92,6 +92,17 @@ class LongestSubstringWithoutRepeatingCharacters:
 
         return result
 
+    def lengthOfLongestSubstring4(self, s):
+        m = [-1 for i in range(128)]
+        result = 0
+        start = 0
+        for i in range(len(s)):
+            start = max(start, m[ord(s[i])]+1)
+            result = max(result, i-start+1)
+            m[ord(s[i])] = i
+
+        return result
+
 
 def main():
     obj = LongestSubstringWithoutRepeatingCharacters()
@@ -108,7 +119,11 @@ def main():
     print(obj.lengthOfLongestSubstring3("abcabcbb"))
     print(obj.lengthOfLongestSubstring3("bbbbb"))
     print(obj.lengthOfLongestSubstring3("pwwkew"))
+    print()
 
+    print(obj.lengthOfLongestSubstring4("abcabcbb"))
+    print(obj.lengthOfLongestSubstring4("bbbbb"))
+    print(obj.lengthOfLongestSubstring4("pwwkew"))
 
 if __name__ == "__main__":
     main()
